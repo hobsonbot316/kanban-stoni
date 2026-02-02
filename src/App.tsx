@@ -3,16 +3,6 @@ import Board from './components/Board'
 import ProjectModal from './components/ProjectModal'
 import { Project, Stage } from './types'
 
-// Check if Firebase is configured
-const isFirebaseConfigured = () => {
-  try {
-    const config = import('./firebase-config')
-    return config !== null
-  } catch {
-    return false
-  }
-}
-
 // Fallback to LocalStorage if Firebase not configured
 const STORAGE_KEY = 'kanban-projects-hobson'
 
@@ -20,41 +10,78 @@ function App() {
   const [projects, setProjects] = useState<Project[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [syncStatus, setSyncStatus] = useState<'local' | 'cloud' | 'error'>('local')
+  const [firebaseError, setFirebaseError] = useState<string | null>(null)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // Load projects (Firebase if configured, else LocalStorage)
+  // Load projects (Firebase if available, else LocalStorage)
   useEffect(() => {
     let unsubscribe: (() => void) | null = null
+    let isMounted = true
 
     const loadProjects = async () => {
       try {
         // Try Firebase first
-        const { subscribeToProjects } = await import('./firebase-service')
-        unsubscribe = subscribeToProjects((firestoreProjects) => {
-          setProjects(firestoreProjects)
-          setSyncStatus('cloud')
-          setIsLoading(false)
-        })
-      } catch (error) {
-        // Fallback to LocalStorage
-        console.log('Firebase not configured, using LocalStorage')
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY)
-          if (raw) {
-            setProjects(JSON.parse(raw))
-          }
-        } catch (e) {
-          console.error('Failed to load from LocalStorage:', e)
+        const { subscribeToProjects, initializeDocument, isInitialized } = await import('./firebase-service')
+        
+        if (!isInitialized) {
+          throw new Error('Firebase not initialized')
         }
-        setSyncStatus('local')
-        setIsLoading(false)
+
+        // Initialize document if needed
+        await initializeDocument()
+
+        // Set up subscription with timeout protection
+        unsubscribe = subscribeToProjects(
+          (firestoreProjects) => {
+            if (!isMounted) return
+            setProjects(firestoreProjects)
+            setSyncStatus('cloud')
+            setIsLoading(false)
+            setFirebaseError(null)
+          },
+          (error) => {
+            if (!isMounted) return
+            console.error('Firebase error:', error)
+            setFirebaseError(error.message)
+            setSyncStatus('error')
+            // Try LocalStorage fallback
+            loadFromLocalStorage()
+          }
+        )
+      } catch (error) {
+        console.log('Firebase failed, using LocalStorage:', error)
+        loadFromLocalStorage()
       }
     }
+
+    const loadFromLocalStorage = () => {
+      if (!isMounted) return
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY)
+        if (raw) {
+          setProjects(JSON.parse(raw))
+        }
+      } catch (e) {
+        console.error('Failed to load from LocalStorage:', e)
+      }
+      setSyncStatus('local')
+      setIsLoading(false)
+    }
+
+    // Ensure we never stay loading forever
+    const maxTimeout = setTimeout(() => {
+      if (isMounted && isLoading) {
+        console.warn('Maximum loading timeout reached')
+        loadFromLocalStorage()
+      }
+    }, 10000)
 
     loadProjects()
 
     return () => {
+      isMounted = false
+      clearTimeout(maxTimeout)
       if (unsubscribe) unsubscribe()
     }
   }, [])
@@ -67,13 +94,16 @@ function App() {
       try {
         if (syncStatus === 'cloud') {
           const { saveProjects: saveToFirestore } = await import('./firebase-service')
-          await saveToFirestore(projects)
+          const success = await saveToFirestore(projects)
+          if (!success) {
+            // Fallback to LocalStorage on save failure
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
+          }
         } else {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
         }
       } catch (error) {
         console.error('Failed to save projects:', error)
-        // Fallback to LocalStorage on error
         localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
       }
     }
@@ -156,6 +186,12 @@ function App() {
     setSelectedProject(null)
   }, [])
 
+  const retryFirebase = useCallback(async () => {
+    setIsLoading(true)
+    setFirebaseError(null)
+    window.location.reload()
+  }, [])
+
   // Expose control functions to window for Hobson to access
   useEffect(() => {
     const api = {
@@ -178,6 +214,7 @@ function App() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading projects...</p>
+          <p className="text-sm text-gray-400 mt-2">This may take up to 10 seconds</p>
         </div>
       </div>
     )
@@ -197,13 +234,13 @@ function App() {
               <p className="text-sm text-gray-500">Managed by Hobson 🎩</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <p className="text-gray-600">
               Click any project to view details and notes. Use arrows to move between stages.
             </p>
             {syncStatus === 'local' && (
               <span className="text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded-full">
-                ⚠️ Local only — see README to enable cloud sync
+                ⚠️ Local only
               </span>
             )}
             {syncStatus === 'cloud' && (
@@ -211,7 +248,18 @@ function App() {
                 ✓ Cloud synced
               </span>
             )}
+            {syncStatus === 'error' && (
+              <button
+                onClick={retryFirebase}
+                className="text-xs px-2 py-1 bg-rose-100 text-rose-700 rounded-full hover:bg-rose-200"
+              >
+                ⚠️ Sync error — click to retry
+              </button>
+            )}
           </div>
+          {firebaseError && (
+            <p className="text-xs text-rose-600 mt-2">Error: {firebaseError}</p>
+          )}
         </header>
 
         <Board 
@@ -223,7 +271,7 @@ function App() {
         {/* Footer */}
         <footer className="mt-8 text-center">
           <p className="text-xs text-gray-400">
-            Built with React + TypeScript + Tailwind • {syncStatus === 'cloud' ? 'Firebase real-time sync' : 'LocalStorage (device only)'}
+            Built with React + TypeScript + Tailwind • {syncStatus === 'cloud' ? 'Firebase real-time sync' : syncStatus === 'error' ? 'Firebase error — using LocalStorage' : 'LocalStorage (device only)'}
           </p>
         </footer>
       </div>
