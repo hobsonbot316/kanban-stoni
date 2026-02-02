@@ -3,39 +3,104 @@ import Board from './components/Board'
 import ProjectModal from './components/ProjectModal'
 import { Project, Stage } from './types'
 
-// Fallback to LocalStorage if Firebase not configured
 const STORAGE_KEY = 'kanban-projects-hobson'
+const FIREBASE_COOLDOWN = 30000 // 30 seconds between Firebase attempts
 
 function App() {
   const [projects, setProjects] = useState<Project[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [syncStatus, setSyncStatus] = useState<'local' | 'cloud' | 'error'>('local')
-  const [firebaseError, setFirebaseError] = useState<string | null>(null)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // Load projects from LocalStorage only (Firebase disabled due to quota)
+  // Load projects - LocalStorage first, then try Firebase once
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if (raw) {
-        setProjects(JSON.parse(raw))
+    let isMounted = true
+    let unsubscribe: (() => void) | null = null
+
+    const loadProjects = async () => {
+      // Always load LocalStorage first (instant)
+      let localProjects: Project[] = []
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY)
+        if (raw) {
+          localProjects = JSON.parse(raw)
+          if (isMounted) setProjects(localProjects)
+        }
+      } catch (e) {
+        console.error('LocalStorage error:', e)
       }
-    } catch (e) {
-      console.error('Failed to load from LocalStorage:', e)
+      
+      // Stop loading spinner immediately
+      if (isMounted) setIsLoading(false)
+
+      // Check if we should try Firebase (cooldown to avoid rate limits)
+      const lastFirebaseAttempt = localStorage.getItem('kanban-firebase-last-attempt')
+      const now = Date.now()
+      
+      if (lastFirebaseAttempt && (now - parseInt(lastFirebaseAttempt)) < FIREBASE_COOLDOWN) {
+        console.log('Firebase cooldown active, skipping')
+        return
+      }
+
+      // Try Firebase once (not aggressively)
+      try {
+        localStorage.setItem('kanban-firebase-last-attempt', now.toString())
+        
+        const { subscribeToProjects, initializeDocument, isInitialized } = await import('./firebase-service')
+        
+        if (!isInitialized) {
+          console.log('Firebase not initialized')
+          return
+        }
+
+        await initializeDocument()
+
+        // Single subscription with error handling
+        unsubscribe = subscribeToProjects(
+          (firestoreProjects) => {
+            if (!isMounted) return
+            if (firestoreProjects.length > 0) {
+              setProjects(firestoreProjects)
+              setSyncStatus('cloud')
+            }
+          },
+          (error) => {
+            console.error('Firebase error:', error)
+            if (isMounted) setSyncStatus('error')
+          }
+        )
+      } catch (error) {
+        console.log('Firebase unavailable:', error)
+      }
     }
-    setSyncStatus('local')
-    setIsLoading(false)
+
+    loadProjects()
+
+    return () => {
+      isMounted = false
+      if (unsubscribe) unsubscribe()
+    }
   }, [])
 
-  // Save projects to LocalStorage only
+  // Save projects - Firebase if cloud mode, else LocalStorage
   useEffect(() => {
     if (isLoading) return
+
+    // Always save to LocalStorage
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
-  }, [projects, isLoading])
 
-  // === HOBSON CONTROL FUNCTIONS ===
+    // Also try Firebase if we're in cloud mode
+    if (syncStatus === 'cloud') {
+      import('./firebase-service').then(({ saveProjects }) => {
+        saveProjects(projects).catch(err => {
+          console.error('Failed to save to Firebase:', err)
+        })
+      })
+    }
+  }, [projects, isLoading, syncStatus])
 
+  // Control functions
   const addProject = useCallback((project: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>) => {
     const now = new Date().toISOString()
     const newProject: Project = {
@@ -55,20 +120,8 @@ function App() {
         p.id === projectId ? { ...p, stage: newStage, updatedAt: new Date().toISOString() } : p
       )
     )
-    console.log('🎩 Moved project to:', newStage)
     setSelectedProject((prev) => 
       prev && prev.id === projectId ? { ...prev, stage: newStage } : prev
-    )
-  }, [])
-
-  const updateProject = useCallback((projectId: string, updates: Partial<Omit<Project, 'id' | 'createdAt'>>) => {
-    setProjects((prev) =>
-      prev.map((p) =>
-        p.id === projectId ? { ...p, ...updates, updatedAt: new Date().toISOString() } : p
-      )
-    )
-    setSelectedProject((prev) => 
-      prev && prev.id === projectId ? { ...prev, ...updates } : prev
     )
   }, [])
 
@@ -83,22 +136,6 @@ function App() {
     )
   }, [])
 
-  const archiveProject = useCallback((projectId: string) => {
-    moveProject(projectId, 'Archived')
-  }, [moveProject])
-
-  const deleteProject = useCallback((projectId: string) => {
-    setProjects((prev) => prev.filter((p) => p.id !== projectId))
-    if (selectedProject?.id === projectId) {
-      setSelectedProject(null)
-      setIsModalOpen(false)
-    }
-  }, [selectedProject])
-
-  const getProjectsByStage = useCallback((stage: Stage) => {
-    return projects.filter((p) => p.stage === stage)
-  }, [projects])
-
   const handleSelectProject = useCallback((project: Project) => {
     setSelectedProject(project)
     setIsModalOpen(true)
@@ -109,27 +146,14 @@ function App() {
     setSelectedProject(null)
   }, [])
 
-  const retryFirebase = useCallback(async () => {
-    setIsLoading(true)
-    setFirebaseError(null)
-    window.location.reload()
-  }, [])
-
-  // Expose control functions to window for Hobson to access
+  // Expose API
   useEffect(() => {
-    const api = {
+    (window as any).kanban = {
       addProject,
       moveProject,
-      updateProject,
-      archiveProject,
-      deleteProject,
-      getProjectsByStage,
       getAllProjects: () => projects,
-      clearAll: () => setProjects([]),
     }
-    ;(window as any).kanban = api
-    console.log('🎩 Kanban API ready. Use window.kanban to manage projects.')
-  }, [addProject, moveProject, updateProject, archiveProject, deleteProject, getProjectsByStage, projects])
+  }, [addProject, moveProject, projects])
 
   if (isLoading) {
     return (
@@ -137,7 +161,6 @@ function App() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading projects...</p>
-          <p className="text-sm text-gray-400 mt-2">This may take up to 10 seconds</p>
         </div>
       </div>
     )
@@ -146,7 +169,6 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="p-4 md:p-8 max-w-7xl mx-auto">
-        {/* Header */}
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg">
@@ -158,31 +180,14 @@ function App() {
             </div>
           </div>
           <div className="flex items-center gap-4 flex-wrap">
-            <p className="text-gray-600">
-              Click any project to view details and notes. Use arrows to move between stages.
-            </p>
+            <p className="text-gray-600">Click any project to view details and notes.</p>
             {syncStatus === 'local' && (
-              <span className="text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded-full">
-                ⚠️ Local only
-              </span>
+              <span className="text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded-full">⚠️ Local only</span>
             )}
             {syncStatus === 'cloud' && (
-              <span className="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">
-                ✓ Cloud synced
-              </span>
-            )}
-            {syncStatus === 'error' && (
-              <button
-                onClick={retryFirebase}
-                className="text-xs px-2 py-1 bg-rose-100 text-rose-700 rounded-full hover:bg-rose-200"
-              >
-                ⚠️ Sync error — click to retry
-              </button>
+              <span className="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">✓ Cloud synced</span>
             )}
           </div>
-          {firebaseError && (
-            <p className="text-xs text-rose-600 mt-2">Error: {firebaseError}</p>
-          )}
         </header>
 
         <Board 
@@ -191,15 +196,13 @@ function App() {
           onSelectProject={handleSelectProject}
         />
 
-        {/* Footer */}
         <footer className="mt-8 text-center">
           <p className="text-xs text-gray-400">
-            Built with React + TypeScript + Tailwind • {syncStatus === 'cloud' ? 'Firebase real-time sync' : syncStatus === 'error' ? 'Firebase error — using LocalStorage' : 'LocalStorage (device only)'}
+            Built with React + TypeScript + Tailwind
           </p>
         </footer>
       </div>
 
-      {/* Project Detail Modal */}
       <ProjectModal
         project={selectedProject}
         isOpen={isModalOpen}
