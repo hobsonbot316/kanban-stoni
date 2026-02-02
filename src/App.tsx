@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import Board from './components/Board'
 import ProjectModal from './components/ProjectModal'
 import { Project, Stage } from './types'
 
-// GitHub configuration - token loaded from environment or config
+// GitHub configuration
 const GITHUB_OWNER = 'hobsonbot316'
 const GITHUB_REPO = 'kanban-stoni'
 const GITHUB_FILE_PATH = 'projects.json'
@@ -18,10 +18,14 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [fileSha, setFileSha] = useState<string | null>(null)
   const [githubToken, setGithubToken] = useState<string>('')
+  
+  // Track pending changes and save state
+  const pendingChangesRef = useRef(false)
+  const isSavingRef = useRef(false)
+  const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Load GitHub token from config or environment
+  // Load GitHub token
   useEffect(() => {
-    // In production, token should be set via build process or environment
     const token = import.meta.env.VITE_GITHUB_TOKEN || ''
     setGithubToken(token)
   }, [])
@@ -41,7 +45,6 @@ function App() {
       const data = await response.json()
       setFileSha(data.sha)
 
-      // Decode base64 content
       const content = atob(data.content.replace(/\n/g, ''))
       const projects = JSON.parse(content)
       
@@ -61,16 +64,24 @@ function App() {
     loadProjectsFromGitHub()
   }, [])
 
-  // Save projects to GitHub
-  const saveProjectsToGitHub = async (updatedProjects: Project[]) => {
+  // Save projects to GitHub with retry logic
+  const saveProjectsToGitHub = async (projectsToSave: Project[], retryCount = 0): Promise<boolean> => {
     if (!fileSha || !githubToken) {
       console.error('Missing file SHA or GitHub token')
       return false
     }
 
+    if (isSavingRef.current) {
+      // Already saving, mark pending and return
+      pendingChangesRef.current = true
+      return false
+    }
+
+    isSavingRef.current = true
     setSyncStatus('syncing')
+
     try {
-      const content = btoa(JSON.stringify(updatedProjects, null, 2))
+      const content = btoa(JSON.stringify(projectsToSave, null, 2))
       
       const response = await fetch(
         `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`,
@@ -90,6 +101,17 @@ function App() {
         }
       )
 
+      if (response.status === 409) {
+        // Conflict - file changed on server, refetch and retry once
+        console.log('Conflict detected, refetching...')
+        if (retryCount < 2) {
+          await loadProjectsFromGitHub()
+          isSavingRef.current = false
+          return saveProjectsToGitHub(projectsToSave, retryCount + 1)
+        }
+        throw new Error('Conflict: Could not resolve after retry')
+      }
+
       if (!response.ok) {
         throw new Error(`GitHub API error: ${response.status}`)
       }
@@ -98,30 +120,50 @@ function App() {
       setFileSha(data.content.sha)
       setSyncStatus('synced')
       setLastSync(new Date().toLocaleTimeString())
+      
+      // Check if there were pending changes during save
+      if (pendingChangesRef.current) {
+        pendingChangesRef.current = false
+        // Schedule another save
+        scheduleSave()
+      }
+      
       return true
     } catch (error) {
       console.error('Error saving to GitHub:', error)
       setSyncStatus('error')
       return false
+    } finally {
+      isSavingRef.current = false
     }
   }
 
-  // Debounced save
-  const debouncedSave = useCallback(
-    debounce((projects: Project[]) => {
-      if (githubToken) {
+  // Schedule a save with debounce
+  const scheduleSave = useCallback(() => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current)
+    }
+    
+    saveTimeoutRef.current = setTimeout(() => {
+      if (githubToken && fileSha && !isSavingRef.current) {
         saveProjectsToGitHub(projects)
       }
-    }, 2000),
-    [fileSha, githubToken]
-  )
+    }, 3000) // 3 second debounce
+  }, [projects, githubToken, fileSha])
 
-  // Save projects when they change
+  // Save when projects change
   useEffect(() => {
-    if (!isLoading && syncStatus === 'synced' && githubToken) {
-      debouncedSave(projects)
+    if (!isLoading && syncStatus !== 'loading' && githubToken && fileSha) {
+      pendingChangesRef.current = true
+      scheduleSave()
     }
-  }, [projects, isLoading, syncStatus, githubToken])
+    
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current)
+      }
+    }
+  }, [projects, isLoading, syncStatus, githubToken, fileSha, scheduleSave])
 
   // Control functions
   const addProject = useCallback((project: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>) => {
@@ -178,14 +220,22 @@ function App() {
   }, [])
 
   const handleManualSync = async () => {
+    // Cancel any pending saves
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current)
+    }
     await saveProjectsToGitHub(projects)
   }
 
   const handleRefresh = () => {
+    // Cancel any pending saves before refresh
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current)
+    }
     loadProjectsFromGitHub()
   }
 
-  // Expose API for console access
+  // Expose API for console
   useEffect(() => {
     (window as any).kanban = {
       addProject,
@@ -287,7 +337,7 @@ function App() {
             )}
             {githubToken && syncStatus === 'synced' && (
               <span className="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">
-                ✓ Changes auto-sync to GitHub
+                ✓ Auto-sync enabled (3s delay)
               </span>
             )}
             {githubToken && syncStatus === 'error' && (
@@ -321,15 +371,6 @@ function App() {
       />
     </div>
   )
-}
-
-// Debounce utility
-function debounce<T extends (...args: any[]) => void>(func: T, wait: number): T {
-  let timeout: ReturnType<typeof setTimeout> | null = null
-  return ((...args: Parameters<T>) => {
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
-  }) as T
 }
 
 export default App
