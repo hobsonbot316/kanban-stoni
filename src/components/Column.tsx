@@ -40,6 +40,7 @@ export default function Column({ stage, projects, config, onMoveProject, onSelec
               key={project.id} 
               project={project} 
               onClick={() => onSelectProject(project)}
+              onMove={onMoveProject}
             />
           ))
         )}
