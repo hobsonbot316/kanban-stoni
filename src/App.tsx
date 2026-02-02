@@ -14,102 +14,25 @@ function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // Load projects (Firebase if available, else LocalStorage)
+  // Load projects from LocalStorage only (Firebase disabled due to quota)
   useEffect(() => {
-    let unsubscribe: (() => void) | null = null
-    let isMounted = true
-
-    const loadProjects = async () => {
-      try {
-        // Try Firebase first
-        const { subscribeToProjects, initializeDocument, isInitialized } = await import('./firebase-service')
-        
-        if (!isInitialized) {
-          throw new Error('Firebase not initialized')
-        }
-
-        // Initialize document if needed
-        await initializeDocument()
-
-        // Set up subscription with timeout protection
-        unsubscribe = subscribeToProjects(
-          (firestoreProjects) => {
-            if (!isMounted) return
-            setProjects(firestoreProjects)
-            setSyncStatus('cloud')
-            setIsLoading(false)
-            setFirebaseError(null)
-          },
-          (error) => {
-            if (!isMounted) return
-            console.error('Firebase error:', error)
-            setFirebaseError(error.message)
-            setSyncStatus('error')
-            // Try LocalStorage fallback
-            loadFromLocalStorage()
-          }
-        )
-      } catch (error) {
-        console.log('Firebase failed, using LocalStorage:', error)
-        loadFromLocalStorage()
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (raw) {
+        setProjects(JSON.parse(raw))
       }
+    } catch (e) {
+      console.error('Failed to load from LocalStorage:', e)
     }
-
-    const loadFromLocalStorage = () => {
-      if (!isMounted) return
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY)
-        if (raw) {
-          setProjects(JSON.parse(raw))
-        }
-      } catch (e) {
-        console.error('Failed to load from LocalStorage:', e)
-      }
-      setSyncStatus('local')
-      setIsLoading(false)
-    }
-
-    // Ensure we never stay loading forever
-    const maxTimeout = setTimeout(() => {
-      if (isMounted && isLoading) {
-        console.warn('Maximum loading timeout reached')
-        loadFromLocalStorage()
-      }
-    }, 10000)
-
-    loadProjects()
-
-    return () => {
-      isMounted = false
-      clearTimeout(maxTimeout)
-      if (unsubscribe) unsubscribe()
-    }
+    setSyncStatus('local')
+    setIsLoading(false)
   }, [])
 
-  // Save projects
+  // Save projects to LocalStorage only
   useEffect(() => {
     if (isLoading) return
-
-    const saveProjects = async () => {
-      try {
-        if (syncStatus === 'cloud') {
-          const { saveProjects: saveToFirestore } = await import('./firebase-service')
-          const success = await saveToFirestore(projects)
-          if (!success) {
-            // Fallback to LocalStorage on save failure
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
-          }
-        } else {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
-        }
-      } catch (error) {
-        console.error('Failed to save projects:', error)
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
-      }
-    }
-
-    saveProjects()
-  }, [projects, isLoading, syncStatus])
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
+  }, [projects, isLoading])
 
   // === HOBSON CONTROL FUNCTIONS ===
 
