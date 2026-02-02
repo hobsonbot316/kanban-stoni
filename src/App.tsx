@@ -148,7 +148,7 @@ function App() {
       if (githubToken && fileSha && !isSavingRef.current) {
         saveProjectsToGitHub(projects)
       }
-    }, 3000) // 3 second debounce
+    }, 30000) // 30 second debounce
   }, [projects, githubToken, fileSha])
 
   // Save when projects change
@@ -337,7 +337,7 @@ function App() {
             )}
             {githubToken && syncStatus === 'synced' && (
               <span className="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">
-                ✓ Auto-sync enabled (3s delay)
+                ✓ Auto-sync enabled (30s delay)
               </span>
             )}
             {githubToken && syncStatus === 'error' && (
