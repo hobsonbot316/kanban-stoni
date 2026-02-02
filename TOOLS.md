@@ -3,7 +3,8 @@
 ## GitHub Account
 - **Email**: hobsonbot316@gmail.com
 - **Username**: hobsonbot316
-- **Note**: Password not saved - use GitHub password reset if needed
+- **PAT (Classic)**: ghp_***REDACTED*** (see local password manager)
+- **Note**: Token has repo scope. Regenerate at https://github.com/settings/tokens if needed
 
 ## Vercel Account
 - **Email**: hobsonbot316@gmail.com
