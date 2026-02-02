@@ -6,9 +6,11 @@ interface ColumnProps {
   stage: Stage
   projects: Project[]
   config: { color: string; icon: string; description: string }
+  onMoveProject: (projectId: string, newStage: Stage) => void
+  onSelectProject: (project: Project) => void
 }
 
-export default function Column({ stage, projects, config }: ColumnProps) {
+export default function Column({ stage, projects, config, onMoveProject, onSelectProject }: ColumnProps) {
   return (
     <div className="flex flex-col">
       {/* Column Header */}
@@ -33,7 +35,13 @@ export default function Column({ stage, projects, config }: ColumnProps) {
             <span className="text-sm">No projects yet</span>
           </div>
         ) : (
-          projects.map((project) => <Card key={project.id} project={project} />)
+          projects.map((project) => (
+            <Card 
+              key={project.id} 
+              project={project} 
+              onClick={() => onSelectProject(project)}
+            />
+          ))
         )}
       </div>
     </div>

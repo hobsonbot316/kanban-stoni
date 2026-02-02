@@ -2,9 +2,14 @@ import React from 'react'
 import Column from './Column'
 import { Project, Stage } from '../types'
 
-const stages: Stage[] = ['In Progress', 'Finished', 'Wishlist', 'Archived']
+const stages: Stage[] = ['Wishlist', 'In Progress', 'Finished', 'Archived']
 
 const stageConfig: Record<Stage, { color: string; icon: string; description: string }> = {
+  'Wishlist': { 
+    color: 'from-violet-500 to-purple-400', 
+    icon: '✨',
+    description: 'Future ideas'
+  },
   'In Progress': { 
     color: 'from-blue-500 to-cyan-400', 
     icon: '⚡',
@@ -15,11 +20,6 @@ const stageConfig: Record<Stage, { color: string; icon: string; description: str
     icon: '✓',
     description: 'Completed'
   },
-  'Wishlist': { 
-    color: 'from-violet-500 to-purple-400', 
-    icon: '✨',
-    description: 'Future ideas'
-  },
   'Archived': { 
     color: 'from-slate-500 to-gray-400', 
     icon: '📦',
@@ -29,9 +29,11 @@ const stageConfig: Record<Stage, { color: string; icon: string; description: str
 
 interface BoardProps {
   projects: Project[]
+  onMoveProject: (projectId: string, newStage: Stage) => void
+  onSelectProject: (project: Project) => void
 }
 
-export default function Board({ projects }: BoardProps) {
+export default function Board({ projects, onMoveProject, onSelectProject }: BoardProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {stages.map((stage) => (
@@ -40,6 +42,8 @@ export default function Board({ projects }: BoardProps) {
           stage={stage}
           projects={projects.filter((p) => p.stage === stage)}
           config={stageConfig[stage]}
+          onMoveProject={onMoveProject}
+          onSelectProject={onSelectProject}
         />
       ))}
     </div>

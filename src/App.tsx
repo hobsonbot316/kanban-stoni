@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Board from './components/Board'
+import ProjectModal from './components/ProjectModal'
 import { Project, Stage } from './types'
 
 const STORAGE_KEY = 'kanban-projects-hobson'
@@ -19,6 +20,9 @@ function App() {
     }
     return defaultProjects
   })
+
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
@@ -46,6 +50,10 @@ function App() {
       )
     )
     console.log('🎩 Moved project to:', newStage)
+    // Update selected project if it's the one being moved
+    setSelectedProject((prev) => 
+      prev && prev.id === projectId ? { ...prev, stage: newStage } : prev
+    )
   }, [])
 
   const updateProject = useCallback((projectId: string, updates: Partial<Omit<Project, 'id' | 'createdAt'>>) => {
@@ -53,6 +61,22 @@ function App() {
       prev.map((p) =>
         p.id === projectId ? { ...p, ...updates, updatedAt: new Date().toISOString() } : p
       )
+    )
+    // Update selected project if it's being updated
+    setSelectedProject((prev) => 
+      prev && prev.id === projectId ? { ...prev, ...updates } : prev
+    )
+  }, [])
+
+  const updateProjectNotes = useCallback((projectId: string, notes: string) => {
+    setProjects((prev) =>
+      prev.map((p) =>
+        p.id === projectId ? { ...p, notes, updatedAt: new Date().toISOString() } : p
+      )
+    )
+    // Update selected project
+    setSelectedProject((prev) => 
+      prev && prev.id === projectId ? { ...prev, notes } : prev
     )
   }, [])
 
@@ -62,11 +86,25 @@ function App() {
 
   const deleteProject = useCallback((projectId: string) => {
     setProjects((prev) => prev.filter((p) => p.id !== projectId))
-  }, [])
+    if (selectedProject?.id === projectId) {
+      setSelectedProject(null)
+      setIsModalOpen(false)
+    }
+  }, [selectedProject])
 
   const getProjectsByStage = useCallback((stage: Stage) => {
     return projects.filter((p) => p.stage === stage)
   }, [projects])
+
+  const handleSelectProject = useCallback((project: Project) => {
+    setSelectedProject(project)
+    setIsModalOpen(true)
+  }, [])
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false)
+    setSelectedProject(null)
+  }, [])
 
   // Expose control functions to window for Hobson to access
   useEffect(() => {
@@ -99,11 +137,15 @@ function App() {
             </div>
           </div>
           <p className="text-gray-600 ml-13 pl-13">
-            Real-time project tracking. Open browser console to see available commands.
+            Click any project to view details and notes. Use arrows to move between stages.
           </p>
         </header>
 
-        <Board projects={projects} />
+        <Board 
+          projects={projects} 
+          onMoveProject={moveProject}
+          onSelectProject={handleSelectProject}
+        />
 
         {/* Footer */}
         <footer className="mt-8 text-center">
@@ -112,6 +154,15 @@ function App() {
           </p>
         </footer>
       </div>
+
+      {/* Project Detail Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onMove={moveProject}
+        onUpdateNotes={updateProjectNotes}
+      />
     </div>
   )
 }
