@@ -6,8 +6,78 @@ import { Project, Stage } from './types'
 const STORAGE_KEY = 'kanban-projects-hobson'
 const FIREBASE_COOLDOWN = 30000 // 30 seconds between Firebase attempts
 
+// Default projects - loaded when no LocalStorage exists
+const defaultProjects: Project[] = [
+  {
+    id: 'default-1',
+    title: 'Brave Search API Integration',
+    description: 'Set up Brave Search API for web search capabilities - research, trending topics, general information retrieval',
+    priority: 'Medium',
+    dueDate: '2026-02-15',
+    tags: ['api', 'search', 'brave', 'web'],
+    stage: 'Wishlist',
+    createdAt: '2026-02-02T15:00:00.000Z',
+    updatedAt: '2026-02-02T15:00:00.000Z'
+  },
+  {
+    id: 'default-2',
+    title: 'Grok API Integration',
+    description: 'Connect to xAI Grok API for alternative AI model access and comparison',
+    priority: 'Low',
+    dueDate: '2026-02-28',
+    tags: ['api', 'ai', 'grok', 'xai'],
+    stage: 'Wishlist',
+    createdAt: '2026-02-02T15:00:00.000Z',
+    updatedAt: '2026-02-02T15:00:00.000Z'
+  },
+  {
+    id: 'default-3',
+    title: 'Microsoft Graph API Integration',
+    description: 'Implement robust programmatic email sending via Microsoft Graph API',
+    priority: 'Low',
+    dueDate: '2026-02-15',
+    tags: ['email', 'microsoft', 'api'],
+    stage: 'Wishlist',
+    createdAt: '2026-02-02T15:00:00.000Z',
+    updatedAt: '2026-02-02T15:00:00.000Z'
+  },
+  {
+    id: 'default-4',
+    title: 'Humble Pools Jobber Integration',
+    description: 'Connect to Jobber API for automated scheduling and CRM workflows',
+    priority: 'Medium',
+    dueDate: '2026-02-28',
+    tags: ['humble-pools', 'jobber', 'automation'],
+    stage: 'Wishlist',
+    createdAt: '2026-02-02T15:00:00.000Z',
+    updatedAt: '2026-02-02T15:00:00.000Z'
+  },
+  {
+    id: 'default-5',
+    title: 'AI-dapt Academy Content System',
+    description: 'Build system for managing AI 101 and AI 201 course materials',
+    priority: 'Medium',
+    dueDate: '2026-03-01',
+    tags: ['ai-dapt', 'education', 'content'],
+    stage: 'Wishlist',
+    createdAt: '2026-02-02T15:00:00.000Z',
+    updatedAt: '2026-02-02T15:00:00.000Z'
+  },
+  {
+    id: 'default-6',
+    title: 'Notion Integration',
+    description: 'Connect Kanban board to Notion for persistent cloud storage',
+    priority: 'Low',
+    dueDate: '2026-03-15',
+    tags: ['notion', 'integration', 'database'],
+    stage: 'Wishlist',
+    createdAt: '2026-02-02T15:00:00.000Z',
+    updatedAt: '2026-02-02T15:00:00.000Z'
+  }
+]
+
 function App() {
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<Project[]>(defaultProjects)
   const [isLoading, setIsLoading] = useState(true)
   const [syncStatus, setSyncStatus] = useState<'local' | 'cloud' | 'error' | 'syncing'>('local')
   const [lastSync, setLastSync] = useState<string | null>(null)
@@ -27,9 +97,14 @@ function App() {
         if (raw) {
           localProjects = JSON.parse(raw)
           if (isMounted) setProjects(localProjects)
+        } else {
+          // No LocalStorage - use default projects
+          if (isMounted) setProjects(defaultProjects)
         }
       } catch (e) {
         console.error('LocalStorage error:', e)
+        // Error loading - use defaults
+        if (isMounted) setProjects(defaultProjects)
       }
       
       // Stop loading spinner immediately
