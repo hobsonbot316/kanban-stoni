@@ -10,12 +10,10 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
-    "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^5.1.2",
     "autoprefixer": "^10.4.14",

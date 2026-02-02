@@ -1,4 +1,4 @@
-export type Stage = 'Backlog' | 'In Progress' | 'Review' | 'Done'
+export type Stage = 'In Progress' | 'Finished' | 'Wishlist' | 'Archived'
 
 export type Project = {
   id: string
@@ -8,4 +8,6 @@ export type Project = {
   dueDate?: string
   tags?: string[]
   stage: Stage
+  createdAt: string
+  updatedAt: string
 }
