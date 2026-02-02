@@ -1,17 +1,40 @@
-# Kanban - Projects with Stoni Beauchamp
+# Kanban Board
 
-Simple Kanban board built with React + TypeScript + TailwindCSS and @dnd-kit for drag-and-drop.
+A simple, drag-and-drop Kanban board for project management built with React, TypeScript, and TailwindCSS.
 
-Features:
-- Columns: Backlog, In Progress, Review, Done
-- Project cards with title, description, priority, due date, tags
-- Drag-and-drop between columns
-- LocalStorage persistence
-- Mobile-responsive layout
+## Features
 
-To run locally:
-- npm install
-- npm run dev
+- **Four Columns**: Backlog, In Progress, Review, Done
+- **Project Cards**: Title, description, priority, due date, tags
+- **Drag & Drop**: Move cards between columns with react-beautiful-dnd
+- **Persistent**: Saves to LocalStorage automatically
+- **Responsive**: Works on mobile and desktop
 
-Deployed: (not deployed yet)
+## Tech Stack
 
+- React 18
+- TypeScript
+- Vite
+- TailwindCSS
+- react-beautiful-dnd
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Deploy
+
+Deployed on Vercel.
+
+## License
+
+MIT
