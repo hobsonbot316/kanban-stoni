@@ -8,9 +8,10 @@ interface ColumnProps {
   config: { color: string; icon: string; description: string }
   onMoveProject: (projectId: string, newStage: Stage) => void
   onSelectProject: (project: Project) => void
+  onDeleteProject: (projectId: string) => void
 }
 
-export default function Column({ stage, projects, config, onMoveProject, onSelectProject }: ColumnProps) {
+export default function Column({ stage, projects, config, onMoveProject, onSelectProject, onDeleteProject }: ColumnProps) {
   return (
     <div className="flex flex-col">
       {/* Column Header */}
@@ -41,6 +42,7 @@ export default function Column({ stage, projects, config, onMoveProject, onSelec
               project={project} 
               onClick={() => onSelectProject(project)}
               onMove={onMoveProject}
+              onDelete={onDeleteProject}
             />
           ))
         )}

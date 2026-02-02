@@ -31,9 +31,10 @@ interface BoardProps {
   projects: Project[]
   onMoveProject: (projectId: string, newStage: Stage) => void
   onSelectProject: (project: Project) => void
+  onDeleteProject: (projectId: string) => void
 }
 
-export default function Board({ projects, onMoveProject, onSelectProject }: BoardProps) {
+export default function Board({ projects, onMoveProject, onSelectProject, onDeleteProject }: BoardProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {stages.map((stage) => (
@@ -44,6 +45,7 @@ export default function Board({ projects, onMoveProject, onSelectProject }: Boar
           config={stageConfig[stage]}
           onMoveProject={onMoveProject}
           onSelectProject={onSelectProject}
+          onDeleteProject={onDeleteProject}
         />
       ))}
     </div>

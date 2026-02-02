@@ -5,6 +5,7 @@ interface CardProps {
   project: Project
   onClick: () => void
   onMove: (projectId: string, newStage: Stage) => void
+  onDelete: (projectId: string) => void
 }
 
 const priorityConfig = {
@@ -13,8 +14,15 @@ const priorityConfig = {
   Low: { color: 'bg-emerald-500', light: 'bg-emerald-50 text-emerald-700', label: 'Low' },
 }
 
-export default function Card({ project, onClick, onMove }: CardProps) {
+export default function Card({ project, onClick, onMove, onDelete }: CardProps) {
   const priority = project.priority ? priorityConfig[project.priority] : null
+  
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (confirm(`Delete "${project.title}"?`)) {
+      onDelete(project.id)
+    }
+  }
   
   return (
     <div 
@@ -96,7 +104,7 @@ export default function Card({ project, onClick, onMove }: CardProps) {
         </span>
       </div>
 
-      {/* Quick Action Buttons - Only for Finished projects */}
+      {/* Quick Action Buttons */}
       {project.stage === 'Finished' && (
         <div className="mt-3 pt-3 border-t border-gray-100 flex gap-2">
           <button
@@ -122,6 +130,21 @@ export default function Card({ project, onClick, onMove }: CardProps) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
             </svg>
             Archive
+          </button>
+        </div>
+      )}
+
+      {/* Delete button for Wishlist projects */}
+      {project.stage === 'Wishlist' && (
+        <div className="mt-3 pt-3 border-t border-gray-100">
+          <button
+            onClick={handleDelete}
+            className="w-full px-3 py-1.5 text-xs font-medium text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 transition-colors flex items-center justify-center gap-1"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Delete Idea
           </button>
         </div>
       )}
