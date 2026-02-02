@@ -5,27 +5,35 @@ import Card from './Card'
 interface ColumnProps {
   stage: Stage
   projects: Project[]
+  config: { color: string; icon: string; description: string }
 }
 
-const stageColors: Record<Stage, string> = {
-  'In Progress': 'border-blue-400 bg-blue-50',
-  'Finished': 'border-green-400 bg-green-50',
-  'Wishlist': 'border-purple-400 bg-purple-50',
-  'Archived': 'border-gray-400 bg-gray-50',
-}
-
-export default function Column({ stage, projects }: ColumnProps) {
+export default function Column({ stage, projects, config }: ColumnProps) {
   return (
-    <div className={`rounded-lg shadow p-3 flex-1 min-w-[220px] border-t-4 ${stageColors[stage]}`}>
-      <h2 className="font-semibold mb-3 text-gray-800">
-        {stage} <span className="text-sm text-gray-500">({projects.length})</span>
-      </h2>
-      <div className="space-y-2 min-h-[60px]">
-        {projects.map((project) => (
-          <Card key={project.id} project={project} />
-        ))}
-        {projects.length === 0 && (
-          <div className="text-xs text-gray-400 italic text-center py-4">No projects</div>
+    <div className="flex flex-col">
+      {/* Column Header */}
+      <div className={`rounded-t-xl bg-gradient-to-r ${config.color} p-4 text-white shadow-lg`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">{config.icon}</span>
+            <h2 className="font-bold text-lg">{stage}</h2>
+          </div>
+          <span className="bg-white/20 px-2.5 py-1 rounded-full text-sm font-semibold">
+            {projects.length}
+          </span>
+        </div>
+        <p className="text-white/80 text-xs mt-1">{config.description}</p>
+      </div>
+      
+      {/* Cards Container */}
+      <div className="flex-1 bg-gray-50/80 rounded-b-xl p-3 min-h-[400px] space-y-3 border-x border-b border-gray-200">
+        {projects.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-32 text-gray-400">
+            <span className="text-2xl mb-1">{config.icon}</span>
+            <span className="text-sm">No projects yet</span>
+          </div>
+        ) : (
+          projects.map((project) => <Card key={project.id} project={project} />)
         )}
       </div>
     </div>

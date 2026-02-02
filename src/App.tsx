@@ -25,7 +25,6 @@ function App() {
   }, [projects])
 
   // === HOBSON CONTROL FUNCTIONS ===
-  // These are exposed for Hobson to manage projects programmatically
 
   const addProject = useCallback((project: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>) => {
     const now = new Date().toISOString()
@@ -36,6 +35,7 @@ function App() {
       updatedAt: now,
     }
     setProjects((prev) => [...prev, newProject])
+    console.log('🎩 Added project:', newProject.title)
     return newProject.id
   }, [])
 
@@ -45,6 +45,7 @@ function App() {
         p.id === projectId ? { ...p, stage: newStage, updatedAt: new Date().toISOString() } : p
       )
     )
+    console.log('🎩 Moved project to:', newStage)
   }, [])
 
   const updateProject = useCallback((projectId: string, updates: Partial<Omit<Project, 'id' | 'createdAt'>>) => {
@@ -84,19 +85,31 @@ function App() {
   }, [addProject, moveProject, updateProject, archiveProject, deleteProject, getProjectsByStage, projects])
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="p-4 md:p-6 max-w-7xl mx-auto">
-        <header className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">📋 Projects with Stoni Beauchamp</h1>
-          <p className="text-sm text-gray-600 mt-1">
-            Managed by Hobson 🎩 • Open browser console to see available commands
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="p-4 md:p-8 max-w-7xl mx-auto">
+        {/* Header */}
+        <header className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg">
+              📋
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Projects with Stoni Beauchamp</h1>
+              <p className="text-sm text-gray-500">Managed by Hobson 🎩</p>
+            </div>
+          </div>
+          <p className="text-gray-600 ml-13 pl-13">
+            Real-time project tracking. Open browser console to see available commands.
           </p>
         </header>
 
         <Board projects={projects} />
 
-        <footer className="mt-8 text-xs text-gray-500 text-center">
-          Built with React + TypeScript + Tailwind • LocalStorage persistence
+        {/* Footer */}
+        <footer className="mt-8 text-center">
+          <p className="text-xs text-gray-400">
+            Built with React + TypeScript + Tailwind • LocalStorage persistence
+          </p>
         </footer>
       </div>
     </div>
