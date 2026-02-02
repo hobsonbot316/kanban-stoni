@@ -77,21 +77,6 @@
     "updatedAt": "2026-02-02T15:00:00.000Z"
   },
   {
-    "id": "default-6",
-    "title": "Notion Integration",
-    "description": "Connect Kanban board to Notion for persistent cloud storage",
-    "priority": "Low",
-    "dueDate": "2026-03-15",
-    "tags": [
-      "notion",
-      "integration",
-      "database"
-    ],
-    "stage": "Wishlist",
-    "createdAt": "2026-02-02T15:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
     "id": "ip-1",
     "title": "Kanban Board MVP",
     "description": "Built and deployed Kanban project tracker with React + TypeScript + Tailwind",
