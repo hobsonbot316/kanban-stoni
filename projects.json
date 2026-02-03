@@ -1,380 +1,494 @@
 [
-  {
-    "id": "default-1",
-    "title": "Brave Search API Integration",
-    "description": "Set up Brave Search API for web search capabilities - research, trending topics, general information retrieval",
-    "priority": "Medium",
-    "dueDate": "2026-02-15",
-    "tags": [
-      "api",
-      "search",
-      "brave",
-      "web"
-    ],
-    "stage": "Wishlist",
-    "createdAt": "2026-02-02T15:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "default-2",
-    "title": "Grok API Integration",
-    "description": "Connect to xAI Grok API for alternative AI model access and comparison",
-    "priority": "Low",
-    "dueDate": "2026-02-28",
-    "tags": [
-      "api",
-      "ai",
-      "grok",
-      "xai"
-    ],
-    "stage": "Wishlist",
-    "createdAt": "2026-02-02T15:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "default-3",
-    "title": "Microsoft Graph API Integration",
-    "description": "Implement robust programmatic email sending via Microsoft Graph API",
-    "priority": "Low",
-    "dueDate": "2026-02-15",
-    "tags": [
-      "email",
-      "microsoft",
-      "api"
-    ],
-    "stage": "Wishlist",
-    "createdAt": "2026-02-02T15:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "default-4",
-    "title": "Humble Pools Jobber Integration",
-    "description": "Connect to Jobber API for automated scheduling and CRM workflows",
-    "priority": "Medium",
-    "dueDate": "2026-02-28",
-    "tags": [
-      "humble-pools",
-      "jobber",
-      "automation"
-    ],
-    "stage": "Wishlist",
-    "createdAt": "2026-02-02T15:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "default-5",
-    "title": "AI-dapt Academy Content System",
-    "description": "Build system for managing AI 101 and AI 201 course materials",
-    "priority": "Medium",
-    "dueDate": "2026-03-01",
-    "tags": [
-      "ai-dapt",
-      "education",
-      "content"
-    ],
-    "stage": "Wishlist",
-    "createdAt": "2026-02-02T15:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "ip-1",
-    "title": "Kanban Board MVP",
-    "description": "Built and deployed Kanban project tracker with React + TypeScript + Tailwind",
-    "priority": "High",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "kanban",
-      "react",
-      "project"
-    ],
-    "stage": "In Progress",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "ip-2",
-    "title": "Kanban Cloud Sync",
-    "description": "Firebase integration for cross-device synchronization",
-    "priority": "High",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "firebase",
-      "sync"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T22:20:52.684Z"
-  },
-  {
-    "id": "fin-1",
-    "title": "Email Account Integration",
-    "description": "Connected Google (hobsonbot316@gmail.com) and Microsoft (hobsonbot@hotmail.com) accounts, sent test email",
-    "priority": "Medium",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "email",
-      "google",
-      "microsoft"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "arch-1",
-    "title": "OpenClaw Gateway Config",
-    "description": "Enabled memory compaction flush, session memory search, configured CLI backends",
-    "priority": "High",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "config",
-      "openclaw",
-      "infrastructure"
-    ],
-    "stage": "Archived",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "arch-2",
-    "title": "Codex CLI Setup",
-    "description": "Installed Codex CLI with OAuth authentication, configured for complex coding tasks",
-    "priority": "High",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "codex",
-      "openai",
-      "cli"
-    ],
-    "stage": "Archived",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "arch-3",
-    "title": "Chrome Browser Relay",
-    "description": "Enabled OpenClaw Browser Relay extension for Chrome tab control",
-    "priority": "High",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "browser",
-      "chrome",
-      "extension"
-    ],
-    "stage": "Archived",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "arch-4",
-    "title": "OpenAI Backup Provider",
-    "description": "Added OpenAI as fallback model provider with gpt-5-mini and gpt-5-nano",
-    "priority": "Medium",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "openai",
-      "models",
-      "fallback"
-    ],
-    "stage": "Archived",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "arch-5",
-    "title": "Kanban Visual Redesign",
-    "description": "Improved UI with gradient headers, modern cards, better typography",
-    "priority": "Medium",
-    "dueDate": "2026-02-01",
-    "tags": [
-      "kanban",
-      "design",
-      "ui"
-    ],
-    "stage": "Archived",
-    "createdAt": "2026-02-02T12:00:00.000Z",
-    "updatedAt": "2026-02-02T15:00:00.000Z"
-  },
-  {
-    "id": "wish-6",
-    "tags": [
-      "ai-dapt",
-      "automation",
-      "cron",
-      "research",
-      "swot"
-    ],
-    "stage": "Wishlist",
-    "createdAt": "2026-02-02T23:35:02.020Z",
-    "description": "Create automated daily cron job that scans viral AI news and generates a SWOT analysis (Strengths, Weaknesses, Opportunities, Threats) for ADA positioning",
-    "updatedAt": "2026-02-02T23:35:02.071Z",
-    "title": "Daily AI SWOT Analysis Cron Job",
-    "priority": "Medium",
-    "dueDate": "2026-02-15"
-  },
-  {
-    "id": "wish-7",
-    "tags": [
-      "tools",
-      "python",
-      "setup"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:04:26.195Z",
-    "description": "Install Python 3.12 for running skills scripts, automation, and AI/ML workflows",
-    "updatedAt": "2026-02-03T06:13:36.482Z",
-    "title": "Install Python",
-    "priority": "High",
-    "dueDate": "2026-02-05"
-  },
-  {
-    "id": "wish-8",
-    "tags": [
-      "tools",
-      "ffmpeg",
-      "media"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:04:26.201Z",
-    "description": "Install ffmpeg for audio/video processing, media conversion, and TTS workflows",
-    "updatedAt": "2026-02-03T06:13:36.508Z",
-    "title": "Install ffmpeg",
-    "priority": "Medium",
-    "dueDate": "2026-02-10"
-  },
-  {
-    "id": "wish-9",
-    "tags": [
-      "tools",
-      "7zip",
-      "utilities"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:04:26.201Z",
-    "description": "Install 7-Zip for better archive handling (zip, tar, 7z formats)",
-    "updatedAt": "2026-02-03T06:13:36.508Z",
-    "title": "Install 7-Zip",
-    "priority": "Low",
-    "dueDate": "2026-02-10"
-  },
-  {
-    "id": "wish-10",
-    "tags": [
-      "tools",
-      "imagemagick",
-      "media"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:07:51.190Z",
-    "description": "Install ImageMagick for image manipulation and format conversion",
-    "updatedAt": "2026-02-03T06:13:36.508Z",
-    "title": "Install ImageMagick",
-    "priority": "Low",
-    "dueDate": "2026-02-15"
-  },
-  {
-    "id": "wish-11",
-    "tags": [
-      "tools",
-      "pandoc",
-      "documents"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:07:51.197Z",
-    "description": "Install Pandoc for document format conversion (Word, Markdown, PDF, HTML)",
-    "updatedAt": "2026-02-03T06:13:36.508Z",
-    "title": "Install Pandoc",
-    "priority": "Low",
-    "dueDate": "2026-02-15"
-  },
-  {
-    "id": "wish-12",
-    "tags": [
-      "tools",
-      "vscode",
-      "editor"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:07:51.197Z",
-    "description": "Install Visual Studio Code for code editing and reviewing",
-    "updatedAt": "2026-02-03T06:13:36.508Z",
-    "title": "Install VS Code",
-    "priority": "Low",
-    "dueDate": "2026-02-15"
-  },
-  {
-    "id": "wish-13",
-    "tags": [
-      "tools",
-      "yt-dlp",
-      "media"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:13:36.508Z",
-    "description": "Video/audio downloader for YouTube, Vimeo, etc. - research and content extraction",
-    "updatedAt": "2026-02-03T06:16:43.664Z",
-    "title": "Install yt-dlp",
-    "priority": "High",
-    "dueDate": "2026-02-05"
-  },
-  {
-    "id": "wish-14",
-    "tags": [
-      "tools",
-      "github",
-      "cli"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:13:36.508Z",
-    "description": "GitHub CLI (gh) for repo management, PRs, and issue tracking from command line",
-    "updatedAt": "2026-02-03T06:16:43.672Z",
-    "title": "Install GitHub CLI",
-    "priority": "High",
-    "dueDate": "2026-02-05"
-  },
-  {
-    "id": "wish-15",
-    "tags": [
-      "tools",
-      "tesseract",
-      "ocr"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:13:36.508Z",
-    "description": "Local OCR engine - extract text from images without API calls",
-    "updatedAt": "2026-02-03T06:16:43.672Z",
-    "title": "Install Tesseract OCR",
-    "priority": "High",
-    "dueDate": "2026-02-05"
-  },
-  {
-    "id": "wish-16",
-    "tags": [
-      "tools",
-      "jq",
-      "json"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:13:36.508Z",
-    "description": "JSON processor for command line - parse and manipulate JSON data",
-    "updatedAt": "2026-02-03T06:16:43.672Z",
-    "title": "Install jq",
-    "priority": "Medium",
-    "dueDate": "2026-02-05"
-  },
-  {
-    "id": "wish-17",
-    "tags": [
-      "tools",
-      "ripgrep",
-      "search"
-    ],
-    "stage": "Finished",
-    "createdAt": "2026-02-03T06:13:36.508Z",
-    "description": "Lightning-fast text search across files",
-    "updatedAt": "2026-02-03T06:16:43.672Z",
-    "title": "Install ripgrep",
-    "priority": "Medium",
-    "dueDate": "2026-02-05"
-  }
+    {
+        "id":  "default-1",
+        "title":  "Brave Search API Integration",
+        "description":  "Set up Brave Search API for web search capabilities - research, trending topics, general information retrieval",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-15",
+        "tags":  [
+                     "api",
+                     "search",
+                     "brave",
+                     "web"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-02T15:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "default-2",
+        "title":  "Grok API Integration",
+        "description":  "Connect to xAI Grok API for alternative AI model access and comparison",
+        "priority":  "Low",
+        "dueDate":  "2026-02-28",
+        "tags":  [
+                     "api",
+                     "ai",
+                     "grok",
+                     "xai"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-02T15:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "default-3",
+        "title":  "Microsoft Graph API Integration",
+        "description":  "Implement robust programmatic email sending via Microsoft Graph API",
+        "priority":  "Low",
+        "dueDate":  "2026-02-15",
+        "tags":  [
+                     "email",
+                     "microsoft",
+                     "api"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-02T15:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "default-4",
+        "title":  "Humble Pools Jobber Integration",
+        "description":  "Connect to Jobber API for automated scheduling and CRM workflows",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-28",
+        "tags":  [
+                     "humble-pools",
+                     "jobber",
+                     "automation"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-02T15:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "default-5",
+        "title":  "AI-dapt Academy Content System",
+        "description":  "Build system for managing AI 101 and AI 201 course materials",
+        "priority":  "Medium",
+        "dueDate":  "2026-03-01",
+        "tags":  [
+                     "ai-dapt",
+                     "education",
+                     "content"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-02T15:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "ip-1",
+        "title":  "Kanban Board MVP",
+        "description":  "Built and deployed Kanban project tracker with React + TypeScript + Tailwind",
+        "priority":  "High",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "kanban",
+                     "react",
+                     "project"
+                 ],
+        "stage":  "In Progress",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "ip-2",
+        "title":  "Kanban Cloud Sync",
+        "description":  "Firebase integration for cross-device synchronization",
+        "priority":  "High",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "firebase",
+                     "sync"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T22:20:52.684Z"
+    },
+    {
+        "id":  "fin-1",
+        "title":  "Email Account Integration",
+        "description":  "Connected Google (hobsonbot316@gmail.com) and Microsoft (hobsonbot@hotmail.com) accounts, sent test email",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "email",
+                     "google",
+                     "microsoft"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "arch-1",
+        "title":  "OpenClaw Gateway Config",
+        "description":  "Enabled memory compaction flush, session memory search, configured CLI backends",
+        "priority":  "High",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "config",
+                     "openclaw",
+                     "infrastructure"
+                 ],
+        "stage":  "Archived",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "arch-2",
+        "title":  "Codex CLI Setup",
+        "description":  "Installed Codex CLI with OAuth authentication, configured for complex coding tasks",
+        "priority":  "High",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "codex",
+                     "openai",
+                     "cli"
+                 ],
+        "stage":  "Archived",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "arch-3",
+        "title":  "Chrome Browser Relay",
+        "description":  "Enabled OpenClaw Browser Relay extension for Chrome tab control",
+        "priority":  "High",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "browser",
+                     "chrome",
+                     "extension"
+                 ],
+        "stage":  "Archived",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "arch-4",
+        "title":  "OpenAI Backup Provider",
+        "description":  "Added OpenAI as fallback model provider with gpt-5-mini and gpt-5-nano",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "openai",
+                     "models",
+                     "fallback"
+                 ],
+        "stage":  "Archived",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "arch-5",
+        "title":  "Kanban Visual Redesign",
+        "description":  "Improved UI with gradient headers, modern cards, better typography",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-01",
+        "tags":  [
+                     "kanban",
+                     "design",
+                     "ui"
+                 ],
+        "stage":  "Archived",
+        "createdAt":  "2026-02-02T12:00:00.000Z",
+        "updatedAt":  "2026-02-02T15:00:00.000Z"
+    },
+    {
+        "id":  "wish-6",
+        "tags":  [
+                     "ai-dapt",
+                     "automation",
+                     "cron",
+                     "research",
+                     "swot"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-02T23:35:02.020Z",
+        "description":  "Create automated daily cron job that scans viral AI news and generates a SWOT analysis (Strengths, Weaknesses, Opportunities, Threats) for ADA positioning",
+        "updatedAt":  "2026-02-02T23:35:02.071Z",
+        "title":  "Daily AI SWOT Analysis Cron Job",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-15"
+    },
+    {
+        "id":  "wish-7",
+        "tags":  [
+                     "tools",
+                     "python",
+                     "setup"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:04:26.195Z",
+        "description":  "Install Python 3.12 for running skills scripts, automation, and AI/ML workflows",
+        "updatedAt":  "2026-02-03T06:13:36.482Z",
+        "title":  "Install Python",
+        "priority":  "High",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "wish-8",
+        "tags":  [
+                     "tools",
+                     "ffmpeg",
+                     "media"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:04:26.201Z",
+        "description":  "Install ffmpeg for audio/video processing, media conversion, and TTS workflows",
+        "updatedAt":  "2026-02-03T06:13:36.508Z",
+        "title":  "Install ffmpeg",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-10"
+    },
+    {
+        "id":  "wish-9",
+        "tags":  [
+                     "tools",
+                     "7zip",
+                     "utilities"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:04:26.201Z",
+        "description":  "Install 7-Zip for better archive handling (zip, tar, 7z formats)",
+        "updatedAt":  "2026-02-03T06:13:36.508Z",
+        "title":  "Install 7-Zip",
+        "priority":  "Low",
+        "dueDate":  "2026-02-10"
+    },
+    {
+        "id":  "wish-10",
+        "tags":  [
+                     "tools",
+                     "imagemagick",
+                     "media"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:07:51.190Z",
+        "description":  "Install ImageMagick for image manipulation and format conversion",
+        "updatedAt":  "2026-02-03T06:13:36.508Z",
+        "title":  "Install ImageMagick",
+        "priority":  "Low",
+        "dueDate":  "2026-02-15"
+    },
+    {
+        "id":  "wish-11",
+        "tags":  [
+                     "tools",
+                     "pandoc",
+                     "documents"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:07:51.197Z",
+        "description":  "Install Pandoc for document format conversion (Word, Markdown, PDF, HTML)",
+        "updatedAt":  "2026-02-03T06:13:36.508Z",
+        "title":  "Install Pandoc",
+        "priority":  "Low",
+        "dueDate":  "2026-02-15"
+    },
+    {
+        "id":  "wish-12",
+        "tags":  [
+                     "tools",
+                     "vscode",
+                     "editor"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:07:51.197Z",
+        "description":  "Install Visual Studio Code for code editing and reviewing",
+        "updatedAt":  "2026-02-03T06:13:36.508Z",
+        "title":  "Install VS Code",
+        "priority":  "Low",
+        "dueDate":  "2026-02-15"
+    },
+    {
+        "id":  "wish-13",
+        "tags":  [
+                     "tools",
+                     "yt-dlp",
+                     "media"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:13:36.508Z",
+        "description":  "Video/audio downloader for YouTube, Vimeo, etc. - research and content extraction",
+        "updatedAt":  "2026-02-03T06:16:43.664Z",
+        "title":  "Install yt-dlp",
+        "priority":  "High",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "wish-14",
+        "tags":  [
+                     "tools",
+                     "github",
+                     "cli"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:13:36.508Z",
+        "description":  "GitHub CLI (gh) for repo management, PRs, and issue tracking from command line",
+        "updatedAt":  "2026-02-03T06:16:43.672Z",
+        "title":  "Install GitHub CLI",
+        "priority":  "High",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "wish-15",
+        "tags":  [
+                     "tools",
+                     "tesseract",
+                     "ocr"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:13:36.508Z",
+        "description":  "Local OCR engine - extract text from images without API calls",
+        "updatedAt":  "2026-02-03T06:16:43.672Z",
+        "title":  "Install Tesseract OCR",
+        "priority":  "High",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "wish-16",
+        "tags":  [
+                     "tools",
+                     "jq",
+                     "json"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:13:36.508Z",
+        "description":  "JSON processor for command line - parse and manipulate JSON data",
+        "updatedAt":  "2026-02-03T06:16:43.672Z",
+        "title":  "Install jq",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "wish-17",
+        "tags":  [
+                     "tools",
+                     "ripgrep",
+                     "search"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:13:36.508Z",
+        "description":  "Lightning-fast text search across files",
+        "updatedAt":  "2026-02-03T06:16:43.672Z",
+        "title":  "Install ripgrep",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "fin-super-1",
+        "tags":  [
+                     "tools",
+                     "rclone",
+                     "cloud"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.676Z",
+        "description":  "Cloud storage CLI for Google Drive, OneDrive, S3, etc.",
+        "updatedAt":  "2026-02-03T06:23:57.682Z",
+        "title":  "Install rclone",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "fin-super-2",
+        "tags":  [
+                     "tools",
+                     "pdf"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.682Z",
+        "description":  "Convert HTML/webpages to PDF",
+        "updatedAt":  "2026-02-03T06:23:57.682Z",
+        "title":  "Install wkhtmltopdf",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "fin-super-3",
+        "tags":  [
+                     "tools",
+                     "metadata"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.682Z",
+        "description":  "Read/write file metadata",
+        "updatedAt":  "2026-02-03T06:23:57.683Z",
+        "title":  "Install exiftool",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "fin-super-4",
+        "tags":  [
+                     "tools",
+                     "pdf"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.683Z",
+        "description":  "PDF text extraction utilities",
+        "updatedAt":  "2026-02-03T06:23:57.683Z",
+        "title":  "Install poppler",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "fin-super-5",
+        "tags":  [
+                     "tools",
+                     "ngrok",
+                     "network"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.683Z",
+        "description":  "Expose local servers to internet",
+        "updatedAt":  "2026-02-03T06:23:57.683Z",
+        "title":  "Install ngrok",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "fin-super-6",
+        "tags":  [
+                     "tools",
+                     "diagrams"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.683Z",
+        "description":  "Generate diagrams from text",
+        "updatedAt":  "2026-02-03T06:23:57.683Z",
+        "title":  "Install graphviz",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "fin-super-7",
+        "tags":  [
+                     "tools",
+                     "api"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.683Z",
+        "description":  "Better HTTP client for API testing",
+        "updatedAt":  "2026-02-03T06:23:57.683Z",
+        "title":  "Install httpie",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "fin-super-8",
+        "tags":  [
+                     "tools",
+                     "database"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T06:23:57.683Z",
+        "description":  "Local database queries",
+        "updatedAt":  "2026-02-03T06:23:57.683Z",
+        "title":  "Install sqlite3",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-03"
+    }
 ]
