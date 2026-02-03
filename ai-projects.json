@@ -1,0 +1,47 @@
+[
+    {
+        "id":  "ai-1",
+        "tags":  [
+                     "content-forge",
+                     "ada",
+                     "automation"
+                 ],
+        "stage":  "In Progress",
+        "createdAt":  "2026-02-03T17:51:04.504Z",
+        "description":  "AI-powered content generation for Ai-dapt Academy. Auto-generates blog posts, images, SEO, and social media posts from any input.",
+        "updatedAt":  "2026-02-03T17:51:04.515Z",
+        "title":  "ContentForge: ADA Blog System",
+        "priority":  "High",
+        "dueDate":  "2026-02-10"
+    },
+    {
+        "id":  "ai-2",
+        "tags":  [
+                     "linkedin",
+                     "api",
+                     "content-forge"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-03T17:51:04.515Z",
+        "description":  "Set up LinkedIn Developer app and get access token for auto-posting ContentForge content",
+        "updatedAt":  "2026-02-03T17:51:04.515Z",
+        "title":  "Learn LinkedIn API Integration",
+        "priority":  "High",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "ai-3",
+        "tags":  [
+                     "research",
+                     "ai-agents",
+                     "humble-pools"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-03T17:51:04.515Z",
+        "description":  "Research how AI agents could automate Humble Pools customer service and scheduling",
+        "updatedAt":  "2026-02-03T17:51:04.515Z",
+        "title":  "Explore AI Agents for Business",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-15"
+    }
+]
