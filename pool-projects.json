@@ -1,0 +1,62 @@
+[
+    {
+        "id":  "pool-1",
+        "tags":  [
+                     "content-forge",
+                     "humble-pools",
+                     "seo"
+                 ],
+        "stage":  "In Progress",
+        "createdAt":  "2026-02-03T17:51:05.654Z",
+        "description":  "Content generation for Humble Pools ICT. Seasonal pool tips, maintenance guides, Facebook + Google Business posts.",
+        "updatedAt":  "2026-02-03T17:51:05.654Z",
+        "title":  "ContentForge: Humble Pools Blog System",
+        "priority":  "High",
+        "dueDate":  "2026-02-10"
+    },
+    {
+        "id":  "pool-2",
+        "tags":  [
+                     "wix",
+                     "api",
+                     "automation"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-03T17:51:05.654Z",
+        "description":  "Get Site ID and API key from Wix dashboard to enable auto-publishing blog posts",
+        "updatedAt":  "2026-02-03T17:51:05.654Z",
+        "title":  "Set up Wix API for humblepoolsICT.com",
+        "priority":  "High",
+        "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "pool-3",
+        "tags":  [
+                     "content",
+                     "seasonal",
+                     "spring"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-03T17:51:05.654Z",
+        "description":  "Generate 4-5 blog posts about spring pool opening to publish in March-April",
+        "updatedAt":  "2026-02-03T17:51:05.654Z",
+        "title":  "Spring Opening Content Campaign",
+        "priority":  "Medium",
+        "dueDate":  "2026-03-01"
+    },
+    {
+        "id":  "pool-4",
+        "tags":  [
+                     "google-business",
+                     "reviews",
+                     "marketing"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-03T17:51:05.654Z",
+        "description":  "Add recent projects, update photos, respond to reviews",
+        "updatedAt":  "2026-02-03T17:51:05.654Z",
+        "title":  "Update Google Business Profile",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-07"
+    }
+]
