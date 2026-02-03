@@ -587,5 +587,22 @@
         "title":  "Kanban Personal Tasks Board",
         "priority":  "Medium",
         "dueDate":  "2026-02-05"
+    },
+    {
+        "id":  "voice-1",
+        "tags":  [
+                     "voice",
+                     "pwa",
+                     "kanban",
+                     "ai",
+                     "completed"
+                 ],
+        "stage":  "Finished",
+        "createdAt":  "2026-02-03T18:00:00.000Z",
+        "description":  "Progressive web app for quick voice-to-kanban task entry. AI transcribes and categorizes tasks automatically. Deployed at voice-tasks.surge.sh",
+        "updatedAt":  "2026-02-03T21:56:00.000Z",
+        "title":  "Voice Tasks PWA",
+        "priority":  "High",
+        "dueDate":  "2026-02-03"
     }
 ]
