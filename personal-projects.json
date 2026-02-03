@@ -1,0 +1,30 @@
+[
+    {
+        "id":  "personal-1",
+        "tags":  [
+                     "welcome",
+                     "personal"
+                 ],
+        "stage":  "In Progress",
+        "createdAt":  "2026-02-03T17:36:34.284Z",
+        "description":  "This is your private task board. Add personal tasks, goals, and reminders here.",
+        "updatedAt":  "2026-02-03T17:36:34.312Z",
+        "title":  "Welcome to Your Personal Board",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-10"
+    },
+    {
+        "id":  "personal-2",
+        "tags":  [
+                     "health",
+                     "family"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-03T17:36:34.312Z",
+        "description":  "Call Dr. Smith\u0027s office to schedule annual checkup",
+        "updatedAt":  "2026-02-03T17:36:34.312Z",
+        "title":  "Example: Schedule Mom\u0027s Doctor Appointment",
+        "priority":  "High",
+        "dueDate":  "2026-02-15"
+    }
+]
