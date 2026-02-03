@@ -503,8 +503,8 @@
                  ],
         "stage":  "In Progress",
         "createdAt":  "2026-02-03T17:32:10.815Z",
-        "description":  "AI-powered content generation for Ai-dapt Academy. Auto-generates blog posts, images, SEO, and social media posts from any input. Wix + LinkedIn integration pending.",
-        "updatedAt":  "2026-02-03T17:32:10.824Z",
+        "description":  "AI-powered content generation for Ai-dapt Academy. Wix credentials configured, ready for testing. LinkedIn integration pending.",
+        "updatedAt":  "2026-02-03T22:14:02.029Z",
         "title":  "ContentForge: ADA Blog System",
         "priority":  "High",
         "dueDate":  "2026-02-10"
