@@ -122,5 +122,21 @@
     "createdAt": "2026-02-04T06:13:56.407Z",
     "updatedAt": "2026-02-04T06:13:56.407Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770185671995",
+    "title": "Plan Email Marketing Campaign",
+    "description": "Develop an email marketing strategy for previous clients of the Swimming Pool Company.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "marketing",
+      "email",
+      "clients"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:14:31.995Z",
+    "updatedAt": "2026-02-04T06:14:31.995Z",
+    "source": "voice-app"
   }
 ]
