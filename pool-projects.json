@@ -169,5 +169,21 @@
     "createdAt": "2026-02-04T06:17:38.590Z",
     "updatedAt": "2026-02-04T06:17:38.590Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770186108288",
+    "title": "Coordinate Shirt Printing with Kevin",
+    "description": "Arrange a meeting with Kevin to print shirts for the upcoming pool season.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "printing",
+      "seasonal",
+      "Kevin"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:21:48.288Z",
+    "updatedAt": "2026-02-04T06:21:48.288Z",
+    "source": "voice-app"
   }
 ]
