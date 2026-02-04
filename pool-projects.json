@@ -217,5 +217,21 @@
     "createdAt": "2026-02-04T06:23:05.136Z",
     "updatedAt": "2026-02-04T06:23:05.136Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770186245379",
+    "title": "Automate Customer Low Water Message",
+    "description": "Create an automated message for customers about low water levels based on visit notes.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "automation",
+      "customer communication",
+      "pool maintenance"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:24:05.379Z",
+    "updatedAt": "2026-02-04T06:24:05.379Z",
+    "source": "voice-app"
   }
 ]
