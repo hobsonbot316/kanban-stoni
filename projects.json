@@ -734,5 +734,21 @@
     "createdAt": "2026-02-04T06:16:28.997Z",
     "updatedAt": "2026-02-04T06:16:28.997Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770186295674",
+    "title": "Trial Hobson for Notes Automation",
+    "description": "Conduct a trial with Hobson for automating daily notes to alert managers at the swimming pool company.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "automation",
+      "trial",
+      "Hobson"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:24:55.674Z",
+    "updatedAt": "2026-02-04T06:24:55.674Z",
+    "source": "voice-app"
   }
 ]
