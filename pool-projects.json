@@ -153,5 +153,21 @@
     "createdAt": "2026-02-04T06:16:56.486Z",
     "updatedAt": "2026-02-04T06:16:56.486Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770185858590",
+    "title": "Set Up Google Ad Campaigns",
+    "description": "Create Google ad campaigns for the upcoming season for the swimming pool company.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "marketing",
+      "advertising",
+      "seasonal"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:17:38.590Z",
+    "updatedAt": "2026-02-04T06:17:38.590Z",
+    "source": "voice-app"
   }
 ]
