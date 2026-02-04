@@ -90,5 +90,21 @@
     "createdAt": "2026-02-04T06:12:57.843Z",
     "updatedAt": "2026-02-04T06:12:57.843Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770185604673",
+    "title": "Setup Geo Tracking for Pool Company",
+    "description": "Set up Geo tracking for the truck using Jobber for the upcoming Pool Company project.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "Geo tracking",
+      "Jobber",
+      "Pool Company"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:13:24.673Z",
+    "updatedAt": "2026-02-04T06:13:24.673Z",
+    "source": "voice-app"
   }
 ]
