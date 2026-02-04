@@ -766,5 +766,21 @@
     "createdAt": "2026-02-04T06:25:38.066Z",
     "updatedAt": "2026-02-04T06:25:38.066Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770186417683",
+    "title": "Develop App for Pool Tech Notifications",
+    "description": "Create an app with Hobson for pool techs to notify about supply levels and other updates.",
+    "priority": "Low",
+    "dueDate": "2026-02-18",
+    "tags": [
+      "app development",
+      "Hobson",
+      "pool management"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:26:57.683Z",
+    "updatedAt": "2026-02-04T06:26:57.683Z",
+    "source": "voice-app"
   }
 ]
