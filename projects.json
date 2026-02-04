@@ -604,5 +604,23 @@
         "title":  "Voice Tasks PWA",
         "priority":  "High",
         "dueDate":  "2026-02-03"
+    },
+    {
+        "id":  "wish-gemini-1",
+        "tags":  [
+                     "google-cloud",
+                     "vertex-ai",
+                     "imagen",
+                     "nano-banana",
+                     "api",
+                     "content-forge"
+                 ],
+        "stage":  "Wishlist",
+        "createdAt":  "2026-02-04T00:36:10.073Z",
+        "description":  "Vertex AI Imagen API returning 401 errors. Need to configure proper authentication (service account or OAuth) to enable automatic image generation for ContentForge. Current workaround: OpenAI image generation.",
+        "updatedAt":  "2026-02-04T00:36:10.082Z",
+        "title":  "Troubleshoot Gemini Cloud API (nano-banana)",
+        "priority":  "Medium",
+        "dueDate":  "2026-02-15"
     }
 ]
