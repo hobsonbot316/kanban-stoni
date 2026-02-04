@@ -74,5 +74,21 @@
     "createdAt": "2026-02-04T06:12:27.227Z",
     "updatedAt": "2026-02-04T06:12:27.227Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770185577843",
+    "title": "Research AI Telephone Agents for Pool Company",
+    "description": "Conduct research on AI telephone agents and set up for the upcoming season for the pool company.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "AI",
+      "research",
+      "setup"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:12:57.843Z",
+    "updatedAt": "2026-02-04T06:12:57.843Z",
+    "source": "voice-app"
   }
 ]
