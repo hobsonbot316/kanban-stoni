@@ -185,5 +185,21 @@
     "createdAt": "2026-02-04T06:21:48.288Z",
     "updatedAt": "2026-02-04T06:21:48.288Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770186137160",
+    "title": "Implement Automations for AR Collections",
+    "description": "Implement automations for accounts receivable collections using Qbo reports for the swimming pool company.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "automation",
+      "Qbo",
+      "accounts receivable"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:22:17.160Z",
+    "updatedAt": "2026-02-04T06:22:17.160Z",
+    "source": "voice-app"
   }
 ]
