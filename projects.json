@@ -750,5 +750,21 @@
     "createdAt": "2026-02-04T06:24:55.674Z",
     "updatedAt": "2026-02-04T06:24:55.674Z",
     "source": "voice-app"
+  },
+  {
+    "id": "voice-1770186338066",
+    "title": "Create Credit Card Usage Automations",
+    "description": "Collaborate with Hobson to develop automations for tracking employee credit card usage at the swimming pool company.",
+    "priority": "Medium",
+    "dueDate": "2026-02-11",
+    "tags": [
+      "automation",
+      "credit card tracking",
+      "Hobson"
+    ],
+    "stage": "Wishlist",
+    "createdAt": "2026-02-04T06:25:38.066Z",
+    "updatedAt": "2026-02-04T06:25:38.066Z",
+    "source": "voice-app"
   }
 ]
